@@ -6,13 +6,10 @@ description: >-
   video) with all media through OpenRouter on one OpenRouter API key: an
   Eleven v4 voice-over with word timings, Nano Banana 2.1 illustrations, Lyria
   music and sound effects, and every move timed to a spoken word. Use this
-  when someone gives an OpenRouter key for a video, or when someone asks
-  for an explainer video, uitlegvideo, animated explanation or "a video that
-  explains X" for a brand or product and HyperFrames is the renderer: they
-  name HyperFrames, there is no Mac with Diffusion Studio (a Linux or cloud
-  machine), or they ask for the HyperFrames version of the explainer skill.
-  The sibling skill explainer-video does the same with Diffusion Studio and
-  separate ElevenLabs and Gemini keys. Not
+  whenever someone asks for an explainer video, uitlegvideo, animated
+  explanation, story animation or "a video that explains X" for a brand or
+  product, also when they only give a topic and a company name, and when
+  someone hands over an OpenRouter key for a video or names HyperFrames. Not
   for cutting recorded footage such as talking heads, podcasts or screen
   recordings.
 ---
@@ -22,10 +19,8 @@ description: >-
 You make a narrated animation of one to three minutes, 1920x1080, in the client's brand. The result is an
 mp4 plus a project folder that anyone can open, preview and change.
 
-This is the HyperFrames edition of the `explainer-video` skill. The method and the rules of craft are the
-same. Two things differ. The renderer: scenes are HTML and CSS moved by GSAP, and HyperFrames turns them
-into video. And the media: voice, word times, illustrations and music all come through OpenRouter, on one
-key.
+Scenes are HTML and CSS moved by GSAP, and HyperFrames turns them into video. Voice, word times,
+illustrations and music all come through OpenRouter, on one key. It runs on macOS, Windows and Linux.
 
 ## The idea that makes these videos good
 

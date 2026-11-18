@@ -1,9 +1,0 @@
-{
-  "positive_global_styles": ["instrumental", "light modern explainer score", "felt piano", "soft pizzicato strings", "warm", "curious"],
-  "negative_global_styles": ["vocals", "singing", "harsh synths", "heavy drums"],
-  "sections": [
-    { "section_name": "The idea", "duration_ms": 10300, "positive_local_styles": ["sparse felt piano motif", "light pulse", "small lifts"], "negative_local_styles": ["big", "drums"] },
-    { "section_name": "The picture", "duration_ms": 5700, "positive_local_styles": ["warmer", "strings join", "gentle forward motion"], "negative_local_styles": ["tension"] },
-    { "section_name": "The close", "duration_ms": 6800, "positive_local_styles": ["bright resolved chord", "soft uplift", "rings out and ends"], "negative_local_styles": ["drums", "new melody"] }
-  ]
-}

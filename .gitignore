@@ -4,3 +4,7 @@ __pycache__/
 # kept on the owner's own machine, not part of the public repository
 vergelijking/
 explainer-video-hyperframes-directe-keys.skill
+# kept local for now
+explainer-video/
+explainer-video.skill
+README-beide-skills.md
