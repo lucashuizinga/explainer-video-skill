@@ -1,0 +1,9 @@
+.env
+.hyperframes/
+exports/
+renders/
+node_modules/
+__pycache__/
+assets/vo/raw/
+.DS_Store
+assets/music/takes/

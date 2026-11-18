@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Scene 2, a picture with a camera: the illustration and its labels sit in one .cam,
+         so they move as one. Everything the film needs sits inside <template>. -->
+  </head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: var(--bg);
+        }
+        #picture-l1,
+        #picture-l2 {
+          font-size: 56px;
+        }
+        #picture-l2 {
+          background: var(--accent-2);
+        }
+      </style>
+
+      <div id="root" data-composition-id="picture" data-width="1920" data-height="1080">
+        <div id="picture-cam" class="cam" data-layout-allow-overflow>
+          <img id="picture-img" src="assets/img/demo.jpg" alt="" />
+          <!-- labels sit at a point of the picture (in 1920x1080 coordinates), so they stay on what they name -->
+          <div class="pin" style="left: 1020px; top: 405px"><div id="picture-l1" class="label">an illustration</div></div>
+          <div class="pin" style="left: 1520px; top: 478px"><div id="picture-l2" class="label">the same camera</div></div>
+        </div>
+
+        <!-- the cuts in and out, each hidden by a panel in the colour of the scene before it -->
+        <div id="picture-in" class="clip cut" data-at="T.picture" data-until="T.picture + 0.3" data-start="0" data-duration="0.3" data-layout-ignore><div class="sweep"></div></div>
+        <div id="picture-out" class="clip cut" data-at="T.close - 0.3" data-until="T.close" data-start="4.72" data-duration="0.3" data-layout-ignore><div class="sweep" style="background: var(--accent-2)"></div></div>
+      </div>
+
+      <script>
+        (function () {
+          const F = window.FILM;
+          const { S, T, ease: E } = F;
+          const L = F.local("picture");
+          const tl = gsap.timeline({ paused: true });
+
+          const M = {
+            illustration: S.s2.at("illustrations"),
+            camera: S.s2.at("the camera", 1, 1),
+          };
+
+          tl.fromTo("#picture-img", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: E.snappyOut }, 0);
+
+          // a slow push into the picture, still moving when the scene is cut.
+          // Zoom times 1920 must stay below the picture's pixel width.
+          tl.fromTo("#picture-cam", F.view(1.04, 960, 540), { ...F.view(1.42, 1090, 480), duration: T.close - T.picture + 0.6, ease: E.softInOut }, 0.2);
+
+          [
+            ["#picture-l1", M.illustration],
+            ["#picture-l2", M.camera],
+          ].forEach(([label, t]) => {
+            tl.fromTo(label, { scale: 0.6 }, { scale: 1, duration: 0.6, ease: E.spring }, L(t - 0.1));
+            tl.fromTo(label, { opacity: 0 }, { opacity: 1, duration: 0.06, ease: "none" }, L(t - 0.1));
+            tl.to(label, { opacity: 0, duration: 0.25, ease: E.snappyIn }, L(T.close - 0.3));
+          });
+
+          F.cutIn(tl, "#picture-in .sweep");
+          F.cutOut(tl, "#picture-out .sweep", T.close - T.picture);
+
+          window.__timelines["picture"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

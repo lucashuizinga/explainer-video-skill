@@ -1,0 +1,11 @@
+{
+  "name": "explainer-video",
+  "displayName": "Explainer video",
+  "private": true,
+  "type": "module",
+  "main": "index.tsx",
+  "devDependencies": {
+    "@diffusionstudio/jsx": "latest",
+    "solid-js": "^1.9.10"
+  }
+}

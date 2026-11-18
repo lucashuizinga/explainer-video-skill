@@ -1,0 +1,6 @@
+.DS_Store
+__pycache__/
+.env
+# kept on the owner's own machine, not part of the public repository
+vergelijking/
+explainer-video-hyperframes-directe-keys.skill

@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Scene 3, the close: the brand, one line, and a hold that keeps moving.
+         Everything the film needs sits inside <template>. -->
+  </head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: var(--bg);
+        }
+        #close-brand {
+          font-size: 120px;
+        }
+        #close-line {
+          font-size: 88px;
+          line-height: 1;
+        }
+        #close-note {
+          font-family: var(--font-body);
+          font-size: 34px;
+          font-weight: 500;
+          line-height: 1;
+          color: var(--ink-soft);
+        }
+      </style>
+
+      <div id="root" data-composition-id="close" data-width="1920" data-height="1080">
+        <div id="close-blob-at" class="at" style="left: 430px; top: 760px" data-layout-ignore>
+          <svg width="1000" height="1000" viewBox="-500 -500 1000 1000" style="overflow: visible"><path id="close-blob" fill="var(--accent-soft)" /></svg>
+        </div>
+
+        <!-- replace this label with the real logo (see references/brand.md in the skill) -->
+        <div class="at" style="left: 960px; top: 440px"><div id="close-brand" class="label">Your brand</div></div>
+
+        <div class="at" style="left: 960px; top: 659px">
+          <p id="close-line"><span class="w">Your</span> <span class="w">own</span> <span class="w">story.</span></p>
+        </div>
+        <div class="at" style="left: 960px; top: 778px">
+          <p id="close-note">Replace script.json, the brand in index.html and the scenes in compositions/</p>
+        </div>
+
+        <div id="close-in" class="clip cut" data-at="T.close" data-until="T.close + 0.3" data-start="0" data-duration="0.3" data-layout-ignore><div class="sweep" style="background: var(--accent-2)"></div></div>
+      </div>
+
+      <script>
+        (function () {
+          const F = window.FILM;
+          const { S, T, END, ease: E } = F;
+          const L = F.local("close");
+          const length = END - T.close;
+          const tl = gsap.timeline({ paused: true });
+
+          const M = { line: S.s3.at("your own story") };
+
+          F.blob(tl, "#close-blob", { r: 380, seed: 2.3, speed: 0.5, duration: length, t0: T.close });
+          F.sway(tl, "#close-blob-at", "x", 34, 8, length, { t0: T.close });
+          F.sway(tl, "#close-blob-at", "y", 22, 6, length, { t0: T.close, phase: 2 });
+
+          tl.fromTo("#close-brand", { scale: 0.5 }, { scale: 1, duration: 0.8, ease: E.spring }, 0.3);
+          tl.fromTo("#close-brand", { opacity: 0 }, { opacity: 1, duration: 0.08, ease: "none" }, 0.3);
+
+          tl.fromTo("#close-line", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: E.snappyOut }, L(M.line - 0.4));
+          F.speak(tl, "#close-line", S.s3, "your own story", L, { dim: 0.14, duration: 0.18 });
+
+          tl.fromTo("#close-note", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: E.snappyOut }, L(M.line + 0.9));
+          tl.to("#close-note", { opacity: 0, duration: 0.5, ease: E.snappyIn }, L(END - 0.6));
+
+          F.cutIn(tl, "#close-in .sweep");
+
+          window.__timelines["close"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

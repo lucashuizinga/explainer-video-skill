@@ -1,0 +1,27 @@
+{
+  "language": "en",
+  "model": "eleven_v4",
+  "voices": { "N": "JBFqnCBsd6RMkjVDRZzb" },
+  "lead_in": 0.8,
+  "tail": 3.5,
+  "segments": [
+    {
+      "id": "s1",
+      "voice": "N",
+      "text": "[warm, clear narrator, unhurried] This is a template. Every move you see hangs on a word. First, the voice. Then the timing. Then the shots.",
+      "chapters": [{ "at": "First the voice", "gap": 0.5 }]
+    },
+    {
+      "id": "s2",
+      "voice": "N",
+      "gap": 0.9,
+      "text": "[calm] Pictures arrive as illustrations, and the camera travels through them."
+    },
+    {
+      "id": "s3",
+      "voice": "N",
+      "gap": 0.9,
+      "text": "[upbeat, inviting] Now replace all of this with your own story."
+    }
+  ]
+}

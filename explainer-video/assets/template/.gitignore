@@ -1,0 +1,7 @@
+.env
+cache/
+exports/
+node_modules/
+__pycache__/
+assets/vo/raw/
+.DS_Store

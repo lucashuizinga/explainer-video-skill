@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Scene 1, the idea: a title, a sentence that lights up word by word, three cards.
+         Everything the film needs sits inside <template>; the head is ignored. -->
+  </head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: var(--bg);
+        }
+        #hook-top {
+          position: absolute;
+          inset: 0;
+        }
+        #hook-title {
+          font-size: 176px;
+          line-height: 1;
+        }
+        #hook-line {
+          font-size: 90px;
+          line-height: 1;
+        }
+        #hook-line .w:last-child {
+          color: var(--accent);
+        }
+        .hook-card {
+          position: relative;
+          width: 480px;
+          height: 390px;
+        }
+        .hook-num {
+          position: absolute;
+          left: 184px;
+          top: 63px;
+          width: 112px;
+          height: 112px;
+          border-radius: 50%;
+          background: var(--accent);
+          color: var(--on-accent);
+          font-size: 68px;
+          line-height: 112px;
+          text-align: center;
+        }
+        .hook-name {
+          font-size: 70px;
+          line-height: 1;
+        }
+        .hook-badge {
+          width: 60px;
+          height: 60px;
+          border-radius: 50%;
+          background: var(--accent-2);
+        }
+        .hook-badge svg {
+          display: block;
+          width: 60px;
+          height: 60px;
+        }
+      </style>
+
+      <div id="root" data-composition-id="hook" data-width="1920" data-height="1080">
+        <!-- a quiet shape that keeps moving, also while the picture holds -->
+        <div id="hook-blob-at" class="at" style="left: 1480px; top: 330px" data-layout-ignore>
+          <svg width="1000" height="1000" viewBox="-500 -500 1000 1000" style="overflow: visible"><path id="hook-blob" fill="var(--accent-soft)" /></svg>
+        </div>
+
+        <!-- the title and the sentence leave together -->
+        <div id="hook-top">
+          <div id="hook-title-move" class="at" style="left: 960px; top: 520px">
+            <h1 id="hook-title">This is a template.</h1>
+          </div>
+          <div class="at" style="left: 960px; top: 600px">
+            <p id="hook-line">
+              <span class="w">Every</span> <span class="w">move</span> <span class="w">you</span> <span class="w">see</span>
+              <span class="w">hangs</span> <span class="w">on</span> <span class="w">a</span> <span class="w">word.</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- three cards: each arrives on "First" or "Then" and gets its name on the noun -->
+        <div id="hook-card-1" class="at" style="left: 430px; top: 560px">
+          <div class="card-in">
+            <div class="hook-card panel">
+              <div class="hook-num">1</div>
+              <div class="at" style="left: 240px; top: 267px"><div class="hook-name card-name">the voice</div></div>
+              <div class="at" style="left: 426px; top: 49px">
+                <div class="hook-badge card-badge">
+                  <svg viewBox="-30 -30 60 60"><path class="card-check" d="M-14.3 0.7 L-3.4 10.9 L15.3 -10.2" fill="none" stroke="var(--on-accent)" stroke-width="5.4" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="1" /></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="hook-card-2" class="at" style="left: 960px; top: 560px">
+          <div class="card-in">
+            <div class="hook-card panel">
+              <div class="hook-num">2</div>
+              <div class="at" style="left: 240px; top: 267px"><div class="hook-name card-name">the timing</div></div>
+              <div class="at" style="left: 426px; top: 49px">
+                <div class="hook-badge card-badge">
+                  <svg viewBox="-30 -30 60 60"><path class="card-check" d="M-14.3 0.7 L-3.4 10.9 L15.3 -10.2" fill="none" stroke="var(--on-accent)" stroke-width="5.4" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="1" /></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="hook-card-3" class="at" style="left: 1490px; top: 560px">
+          <div class="card-in">
+            <div class="hook-card panel">
+              <div class="hook-num">3</div>
+              <div class="at" style="left: 240px; top: 267px"><div class="hook-name card-name">the shots</div></div>
+              <div class="at" style="left: 426px; top: 49px">
+                <div class="hook-badge card-badge">
+                  <svg viewBox="-30 -30 60 60"><path class="card-check" d="M-14.3 0.7 L-3.4 10.9 L15.3 -10.2" fill="none" stroke="var(--on-accent)" stroke-width="5.4" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="1" /></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- the cut to the next scene, hidden by a panel that crosses the frame -->
+        <div id="hook-out" class="clip cut" data-at="T.picture - 0.3" data-until="T.picture" data-start="10.04" data-duration="0.3" data-layout-ignore><div class="sweep"></div></div>
+      </div>
+
+      <script>
+        (function () {
+          const F = window.FILM;
+          const { S, T, ease: E } = F;
+          const L = F.local("hook"); // film time to this scene's clock
+          const length = T.picture - T.hook; // this scene ends where the next one starts
+          const tl = gsap.timeline({ paused: true });
+
+          // 1. The moments, looked up from the voice
+          const M = {
+            title: S.s1.at("This is a template"),
+            every: S.s1.at("Every move"),
+            first: S.s1.at("First the voice"),
+            voice: S.s1.at("First the voice", 1, 2), // word 2 of the phrase, counting from 0
+            then: S.s1.at("Then the timing"),
+            timing: S.s1.at("Then the timing", 1, 2),
+            last: S.s1.at("Then the shots"),
+            shots: S.s1.at("Then the shots", 1, 2),
+          };
+
+          // 2. Every tween is placed at a moment
+          F.blob(tl, "#hook-blob", { r: 430, seed: 1.1, speed: 0.55, duration: length, t0: T.hook });
+          F.sway(tl, "#hook-blob-at", "x", 40, 9, length);
+          F.sway(tl, "#hook-blob-at", "y", 26, 7, length, { phase: 1 });
+
+          // the title punches in, then rises to make room
+          tl.fromTo("#hook-title", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "none" }, L(M.title - 0.05));
+          tl.fromTo("#hook-title", { scale: 1.3 }, { scale: 1, duration: 0.5, ease: E.expoOut }, L(M.title - 0.05));
+          tl.fromTo("#hook-title-move", { y: 0, scale: 1 }, { y: -230, scale: 0.52, duration: 0.5, ease: E.inOut }, L(M.every - 0.7));
+
+          // the sentence: each word lights up at the moment it is spoken
+          tl.fromTo("#hook-line", { opacity: 0 }, { opacity: 1, duration: 0.25, ease: E.snappyOut }, L(M.every - 0.2));
+          F.speak(tl, "#hook-line", S.s1, "Every move", L);
+
+          // both leave while the first card is already arriving, so the frame is never empty
+          tl.fromTo("#hook-top", { y: 0, opacity: 1 }, { y: -900, opacity: 0, duration: 0.5, ease: E.inOut }, L(M.first - 0.3));
+
+          [
+            { card: "#hook-card-1", a: M.first, b: M.voice },
+            { card: "#hook-card-2", a: M.then, b: M.timing },
+            { card: "#hook-card-3", a: M.last, b: M.shots },
+          ].forEach((st, i) => {
+            const q = (s) => st.card + " " + s;
+            tl.fromTo(q(".card-in"), { y: 140, scale: 0.7 }, { y: 0, scale: 1, duration: 0.7, ease: E.spring }, L(st.a - 0.12));
+            tl.fromTo(q(".card-in"), { opacity: 0 }, { opacity: 1, duration: 0.06, ease: "none" }, L(st.a - 0.12));
+            tl.fromTo(q(".card-name"), { opacity: 0 }, { opacity: 1, duration: 0.2, ease: E.snappyOut }, L(st.b - 0.05));
+            tl.fromTo(q(".card-name"), { y: 24 }, { y: 0, duration: 0.3, ease: E.snappyOut }, L(st.b - 0.05));
+            tl.fromTo(q(".card-badge"), { scale: 0 }, { scale: 1, duration: 0.25, ease: E.expoOut }, L(st.b + 0.25));
+            tl.fromTo(q(".card-check"), { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.3, ease: E.snappyOut }, L(st.b + 0.3));
+            F.sway(tl, st.card, "y", 6, 5, length, { phase: i });
+          });
+
+          F.cutOut(tl, "#hook-out .sweep", length);
+
+          // 3. Register the timeline last
+          window.__timelines["hook"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

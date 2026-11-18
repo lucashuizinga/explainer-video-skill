@@ -1,0 +1,5 @@
+# The music for this film, described in plain words: instruments, mood, tempo, what to leave out.
+# tools/music.py adds "instrumental, no vocals" and the length itself. Lines that start with # are skipped.
+A light, modern score for a short explainer film. Felt piano and soft pizzicato strings. Warm and curious.
+No harsh synths, no heavy drums. 96 BPM, C major. It sits quietly under a narrator, so keep the arrangement
+sparse and leave room in the midrange.
